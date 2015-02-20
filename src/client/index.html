@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+  <title>Cards Against Humanity IDS Style</title>
+  <link rel="stylesheet" href="/css/cards.css" />
+  <link rel="stylesheet" href="/css/scoreboard.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font: 13px Helvetica, Arial; }
+    form {
+      background: #000;
+      padding: 3px;
+      bottom: 0;
+      width:100%;
+    }
+    form input { border: 0;
+      padding: 10px;
+      width: calc(100% - 75px);
+      margin-right: .5%;
+      font-size:1.2em;
+    }
+    form button {
+      width: 70px;
+      border: none;
+      padding: 7px;
+      background-color: teal;
+      color: white;
+      font-size: 1.2em
+    }
+
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow-y: scroll;
+      height:250px;
+      padding-right:10px;
+      font-size: 1.1em
+    }
+    #messages li {
+      padding: 5px 10px;
+    }
+    #messages li:nth-child(odd) {
+      background: #eee;
+    }
+
+    .boxes {
+      display: flex;
+      flex-flow: row wrap;
+      height: 100%;
+    }
+    .box {
+      flex: 1 33%;
+    }
+
+    .card:hover{
+      cursor: pointer;
+    }
+
+    .black_card:hover{
+      cursor: default;
+      position:relative;
+      top:0;
+    }
+
+    .scorebox {
+      flex-basis:100%;
+      background-color: #222;
+      color: #fff;
+    }
+
+    .scores {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .score {
+      flex-flow: row wrap;
+      padding-right:20px;
+      margin:12px;
+      list-style: none;
+      font-size: 1.5em;
+    }
+
+    .czar {
+      font-weight: bold;
+      color: red;
+    }
+
+    .previous-round {
+      padding-top: 10px;
+    }
+
+    .last-answer {
+    }
+
+    .last-winner {
+      font-size: 2em;
+      font-weight: bolder;
+    }
+
+    .last-winner-container {
+      display: inline-block;
+      width: 100%;
+    }
+
+    .hand{
+      min-width:400px;
+      padding-left:10px;
+    }
+    .selected-hand-card{
+      border: 1px solid blue;
+    }
+
+    .answer-group{
+      display: flex;
+      border-bottom: 3px dotted #777;
+      /*border-bottom: 3px solid red;*/
+      padding: 20px;
+    }
+
+    .grey {
+      background-color: #Ccc;
+      color: #999;
+      cursor:default;
+    }
+    .grey:hover{
+      cursor:default;
+      top:0;
+    }
+
+    .playing-field {
+      border-right: 1px solid #777;
+    }
+
+    .barbar {
+      background-color: #ddd;
+      padding: 15px;
+      margin: 5px;
+    }
+
+    .clearfix{
+      clear:both;
+    }
+    @media screen and (max-width: 500px) {
+      .boxes {
+        flex-flow: column wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="boxes">
+    <div class="scorebox box">
+      <ul class="scores">
+      </ul>
+      <div class="previous-round last-question"></div>
+      <div class="previous-round last-answer"></div>
+      <div class="previous-round last-winner"></div>
+    </div>
+    <div class="playing-field box">
+      <div class="current-question question card black_card" ></div>
+      <div class="answers"></div>
+    </div>
+    <div class="box hand">
+    </div>
+    <div class="box barbar">
+      <ul id="messages"></ul>
+      <form action="">
+        <input id="message-input" autocomplete="off" /><button>Send</button>
+      </form>
+      <div class='box previous-round'>
+      <h1>Previous Round:</h1>
+          <div class="last-question card black_card"></div>
+          <div class="last-answer"></div>
+          <div class='last-winner-container'>
+        <h1>Winner: </h1>
+      <div class="last-winner"></div>
+      </div>
+      </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/app.js"></script>
+  </body>
+  </html>
